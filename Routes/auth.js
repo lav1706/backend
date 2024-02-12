@@ -1,6 +1,6 @@
 import express from "express";
 import bcrypt from "bcryptjs"; // Import bcryptjs
-import User from "../Models/User";
+import User from "../Models/User.js";
 import jwt from "jsonwebtoken";
 const router = express.Router();
 const salt = bcrypt.genSaltSync(10);
