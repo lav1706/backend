@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
-import User from "../Models/User";
-import { verifyTokenAndAuthorization } from "../Routes/verifyToken";
+import User from "../Models/User.js";
+import { verifyTokenAndAuthorization } from "../Routes/verifyToken.js";
 
 const router = express.Router();
 const salt = bcrypt.genSaltSync(10);
@@ -33,4 +33,4 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 
 // ... (other routes)
 
-module.exports = router;
+export default router;

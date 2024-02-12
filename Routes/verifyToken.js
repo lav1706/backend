@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.token;
@@ -33,7 +35,7 @@ const verifyTokenAndAdmin = (req, res, next) => {
     }
   });
 };
-export default {
+export  {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
