@@ -8,10 +8,7 @@ import authrouter from "./Routes/auth.js";
 dotenv.config();
 //Database
 mongoose
-  .connect(process.env.mongoDBURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.mongoDBURL, {})
   .then(() => console.log(`DB connected`))
   .catch((err) => console.log(err));
 
