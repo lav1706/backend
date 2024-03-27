@@ -1,5 +1,6 @@
 import express from "express";
 import bcrypt from "bcryptjs";
+<<<<<<< HEAD
 import {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
@@ -10,6 +11,10 @@ import {
   getUser,
   updateUser,
 } from "../Controller/UserClt.js";
+=======
+import User from "../Models/User.js";
+import { verifyTokenAndAuthorization } from "../Routes/verifyToken.js";
+>>>>>>> 193be970fd39efc2631f8b4c9f6bca5182e36c8f
 
 const router = express.Router();
 
