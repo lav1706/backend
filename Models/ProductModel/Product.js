@@ -11,17 +11,26 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
     categories: {
-      type: Array,
+      type: String,
     },
     size: {
-      type: String,
+      type: Array,
     },
     color: {
-      type: String,
+      type: Array,
     },
     price: {
       type: Number,
       required: true,
+    },
+    Instock: {
+      type: Boolean,
+      default: true,
+    },
+    countInstock: {
+      type: Number,
+      require: true,
+      default: 0,
     },
   },
   { timestamps: true }

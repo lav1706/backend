@@ -1,36 +1,53 @@
 import express from "express";
 import bcrypt from "bcryptjs";
-import User from "../Models/User";
-import { verifyTokenAndAuthorization } from "../Routes/verifyToken";
+import {
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} from "../Controller/verifyToken.js";
+import {
+  deleteUser,
+  getAllUser,
+  getUser,
+  updateUser,
+} from "../Controller/UserClt.js";
 
 const router = express.Router();
-const salt = bcrypt.genSaltSync(10);
 
 // UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
-  const { password } = req.body;
+router.put("/update/:id", verifyTokenAndAuthorization, updateUser);
+//(delete)
+router.delete("/delete/:id", verifyTokenAndAuthorization, deleteUser);
+//GET USER
+router.get("/find/:id", verifyTokenAndAdmin, getUser);
 
-  if (!password) {
-    return res.status(400).json({ message: "Password is required" });
-  }
+//GET ALL USER
+router.get("/find", verifyTokenAndAdmin, getAllUser);
 
-  const hashPassword = bcrypt.hashSync(password, salt);
+//GET USER STATS
 
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      { $set: { ...req.body, password: hashPassword } },
-      { new: true }
-    );
-    if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).json(updatedUser);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
+//   const date = new Date();
+//   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
 
-// ... (other routes)
+//   try {
+//     const data = await User.aggregate([
+//       { $match: { createdAt: { $gte: lastYear } } },
+//       {
+//         $project: {
+//           month: { $month: "$createdAt" },
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: "$month",
+//           total: { $sum: 1 },
+//         },
+//       },
+//     ]);
+//     res.status(200).json(data);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
-module.exports = router;
+export default router;
